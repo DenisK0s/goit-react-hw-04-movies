@@ -1,0 +1,18 @@
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.Link {
+  display: block;
+  text-decoration: none;
+}
+
+.List {
+  list-style: none;
+}
+
+.ErrorMessage {
+  color: red;
+}

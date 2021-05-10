@@ -1,0 +1,19 @@
+.SearchForm {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.SearchFormInput {
+  width: 100%;
+}
+
+.SearchFormButton {
+  min-width: 70px;
+  padding: 5px;
+  margin-left: 10px;
+
+  border: none;
+
+  background-color: aqua;
+}

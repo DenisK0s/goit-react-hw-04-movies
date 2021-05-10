@@ -1,0 +1,25 @@
+.Navigation {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 250px;
+}
+
+.NavigationList {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NavLinkItem {
+  display: block;
+  text-decoration: none;
+}
+
+.NavLinkItem + .NavLinkItem {
+  margin-left: 10px;
+}
+
+.NavLinkItemActive {
+  color: tomato;
+}
