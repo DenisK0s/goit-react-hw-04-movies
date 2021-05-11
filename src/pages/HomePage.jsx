@@ -1,5 +1,6 @@
 //модули
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 //стили
@@ -14,18 +15,23 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
-    const popularMovies = fetchPopularMovies();
-    this.setState({ movies: popularMovies });
+    fetchPopularMovies().then(({ data }) =>
+      this.setState({ movies: data.results }),
+    );
   }
 
   render() {
     const { movies } = this.state;
-    console.dir(movies);
+    const { match } = this.props;
     return (
       <ul>
-        {/* {movies.map(movie => {
-          return <li key={}>{}</li>;
-        })} */}
+        {movies.map(({ id, title }) => {
+          return (
+            <li key={id}>
+              <Link to={`${match.url}/:${id}`}>{title}</Link>
+            </li>
+          );
+        })}
       </ul>
     );
   }

@@ -18,26 +18,29 @@ class MoviesPage extends Component {
     currentPage: 1,
   };
 
-  componentDidUpdate() {
-    const { searchQuery, currentPage } = this.setState;
-    const requestedMovies = searchMovies({ searchQuery, currentPage });
-    this.setState({ movies: requestedMovies });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchQuery !== this.state.searchQuery) {
+      const { searchQuery, currentPage } = this.state;
+      searchMovies({ searchQuery, currentPage }).then(({ data }) => {
+        this.setState({ movies: data.results });
+      });
+    }
   }
 
   submitFormHandler = query => {
-    this.setState({ searchQuery: query });
+    if (query === '') return;
+    this.setState({ searchQuery: query, currentPage: 1, movies: [] });
   };
 
   render() {
     const { movies } = this.state;
-    console.dir(movies);
     return (
       <>
         <Form onSubmit={this.submitFormHandler} />
         <ul>
-          {/* {movies.map(movie => {
-          return <li key={}>{}</li>;
-        })} */}
+          {movies.map(({ id, title }) => {
+            return <li key={id}>{title}</li>;
+          })}
         </ul>
       </>
     );
