@@ -1,5 +1,6 @@
 //модули
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 //компоненты
@@ -34,12 +35,17 @@ class MoviesPage extends Component {
 
   render() {
     const { movies } = this.state;
+    const { match } = this.props;
     return (
       <>
         <Form onSubmit={this.submitFormHandler} />
         <ul>
           {movies.map(({ id, title }) => {
-            return <li key={id}>{title}</li>;
+            return (
+              <li key={id}>
+                <Link to={`${match.url}/${id}`}>{title}</Link>
+              </li>
+            );
           })}
         </ul>
       </>

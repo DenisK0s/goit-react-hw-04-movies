@@ -22,13 +22,13 @@ class HomePage extends Component {
 
   render() {
     const { movies } = this.state;
-    const { match } = this.props;
+    // const { match } = this.props;
     return (
       <ul>
         {movies.map(({ id, title }) => {
           return (
             <li key={id}>
-              <Link to={`${match.url}/:${id}`}>{title}</Link>
+              <Link to={`/movies/${id}`}>{title}</Link>
             </li>
           );
         })}
