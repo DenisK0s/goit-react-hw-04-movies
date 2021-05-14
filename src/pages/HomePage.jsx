@@ -1,10 +1,13 @@
 //модули
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 //стили
 // import styles from './HomePage.module.css';
+
+//компоненты
+import MoviesList from '../components/MoviesList';
 
 //сервисы
 import { fetchPopularMovies } from '../services/api-service';
@@ -22,18 +25,7 @@ class HomePage extends Component {
 
   render() {
     const { movies } = this.state;
-    // const { match } = this.props;
-    return (
-      <ul>
-        {movies.map(({ id, title }) => {
-          return (
-            <li key={id}>
-              <Link to={`/movies/${id}`}>{title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    );
+    return <MoviesList movies={movies} />;
   }
 }
 

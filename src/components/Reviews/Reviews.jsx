@@ -5,6 +5,7 @@
 import styles from './Reviews.module.css';
 
 const Reviews = ({ reviews }) => {
+  console.log(reviews);
   return (
     <ul className={styles.reviewsList}>
       {reviews.map(review => {

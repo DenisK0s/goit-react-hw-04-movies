@@ -10,6 +10,9 @@ import MoviesPage from './pages/MoviesPage.jsx';
 import MovieDetailsPage from './pages/MovieDetailsPage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 
+//настройки
+import routes from './routes';
+
 class App extends Component {
   render() {
     return (
@@ -17,9 +20,9 @@ class App extends Component {
         <Header />
         <Container>
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/movies" exact component={MoviesPage} />
-            <Route path="/movies/:movieId" component={MovieDetailsPage} />
+            <Route path={routes.home} exact component={HomePage} />
+            <Route path={routes.movies} exact component={MoviesPage} />
+            <Route path={routes.movieDetails} component={MovieDetailsPage} />
             <Route component={ErrorPage} />
           </Switch>
         </Container>

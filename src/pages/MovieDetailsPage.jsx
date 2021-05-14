@@ -1,14 +1,23 @@
 //модули
 import { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 // import PropTypes from 'prop-types';
+
+//либы
+// import classnames from 'classnames';
 
 //компоненты
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
+import Button from '../components/CommonComponents/Button';
+import MovieCard from '../components/MovieCard';
+import MovieExtraInfoTabs from '../components/MovieExtraInfoTabs';
 
 //стили
-import styles from './MovieDetailsPage.module.css';
+// import styles from './MovieDetailsPage.module.css';
+
+//настройки
+import routes from '../routes';
 
 //сервисы
 import {
@@ -33,6 +42,10 @@ class MovieDetailsPage extends Component {
 
   componentDidMount() {
     const { movieId } = this.props.match.params;
+    this.getMovieDetails(movieId);
+  }
+
+  getMovieDetails = movieId => {
     fetchMovieById(movieId)
       .then(({ data }) => {
         const genresString = data.genres.map(genre => genre.name).join(',');
@@ -55,7 +68,21 @@ class MovieDetailsPage extends Component {
       .then(({ data }) => {
         this.setState({ movieReviews: data.results });
       });
-  }
+  };
+
+  handleGoBack = () => {
+    const { location, history } = this.props;
+
+    console.log(location.state.from);
+
+    // if (location.state && location.state.from) {
+    //   return history.push(location.state.from);
+    // }
+
+    // history.push(routes.home);
+
+    history.push(location?.state?.from || routes.home);
+  };
 
   render() {
     const {
@@ -68,51 +95,35 @@ class MovieDetailsPage extends Component {
 
     const posterPathString = `${apiSettings.POSTER_BASE_URL + posterPath}`;
 
-    const { path } = this.props.match;
+    const { match } = this.props;
 
     return (
       <>
-        <div className={styles.movieCard}>
-          <div className={styles.movieCardImgInner}>
-            <img
-              src={posterPathString}
-              alt={title}
-              className={styles.movieCardImg}
-            />
-          </div>
-          <div className={styles.movieCardDescription}>
-            <h1 className={styles.movieCardTitle}>{title}</h1>
-            <p className={styles.movieCardScore}>
-              User Score : {Math.floor(voteAverage * 10)} %
-            </p>
-            <h2 className={styles.movieCardOverview}>Overview</h2>
-            <p className={styles.movieCardOverviewDescr}>{overview}</p>
-            <h3 className={styles.movieCardGenres}>Genres</h3>
-            <p className={styles.movieCardGenresDescr}>{genres}</p>
-          </div>
-        </div>
-        <div>
-          <h2>Additional information</h2>
-          <ul>
-            <li>
-              <Link to="/movies/:movieId/cast">Сast</Link>
-            </li>
-            <li>
-              <Link to="/movies/:movieId/reviews">Reviews</Link>
-            </li>
-          </ul>
-        </div>
+        <Button clickHandler={this.handleGoBack}>Go back</Button>
+        <MovieCard
+          posterPath={posterPath}
+          title={title}
+          genres={genres}
+          voteAverage={voteAverage}
+          overview={overview}
+          posterPathString={posterPathString}
+        />
+        <MovieExtraInfoTabs />
 
-        <Route
-          path={`${path}/cast`}
-          render={props => <Cast {...props} cast={this.state.movieCast} />}
-        />
-        <Route
-          path={`${path}/reviews`}
-          render={props => (
-            <Reviews {...props} reviews={this.state.movieReviews} />
-          )}
-        />
+        {this.state.movieCast !== null && (
+          <Route
+            path={`${match.path}/cast`}
+            render={props => <Cast {...props} cast={this.state.movieCast} />}
+          />
+        )}
+        {this.state.movieReviews !== null && (
+          <Route
+            path={`${match.path}/reviews`}
+            render={props => {
+              return <Reviews {...props} reviews={this.state.movieReviews} />;
+            }}
+          />
+        )}
       </>
     );
   }

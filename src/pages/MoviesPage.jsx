@@ -1,10 +1,11 @@
 //модули
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 //компоненты
 import Form from '../components/CommonComponents/Form';
+import MoviesList from '../components/MoviesList';
 
 //сервисы
 import { searchMovies } from '../services/api-service';
@@ -39,15 +40,7 @@ class MoviesPage extends Component {
     return (
       <>
         <Form onSubmit={this.submitFormHandler} />
-        <ul>
-          {movies.map(({ id, title }) => {
-            return (
-              <li key={id}>
-                <Link to={`${match.url}/${id}`}>{title}</Link>
-              </li>
-            );
-          })}
-        </ul>
+        <MoviesList movies={movies} matchUrl={match.url} />
       </>
     );
   }

@@ -1,0 +1,14 @@
+.Button {
+  min-width: 30px;
+  margin-bottom: 20px;
+  padding: 5px;
+  background-color: aqua;
+
+  border: none;
+
+  transition: transform 250ms;
+}
+
+.Button:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,22 @@
+.movieCard {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.movieCardImgInner {
+  max-width: 250px;
+  margin-right: 20px;
+  padding: 10px;
+
+  border: 1px solid black;
+}
+
+.movieCardDescription {
+  flex-grow: 1;
+}
+
+.movieCardImg {
+  object-fit: cover;
+}

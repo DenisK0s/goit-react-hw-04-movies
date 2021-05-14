@@ -7,9 +7,12 @@ import { NavLink } from 'react-router-dom';
 //стили
 import styles from './Navigation.module.css';
 
+//настройки
+import routs from '../../routes';
+
 const navLinksData = [
-  { path: '/', name: 'Home', status: true },
-  { path: '/movies', name: 'Movies' },
+  { path: `${routs.home}`, name: 'Home', status: true },
+  { path: `${routs.movies}`, name: 'Movies' },
 ];
 
 const NavLinkItem = ({ to, linkStatus, children }) => {
